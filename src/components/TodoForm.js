@@ -2,14 +2,23 @@ import React, {useState} from 'react'
 
 function TodoForm(props) {
 const [input, setInput] = useState('');
+const [id, setId] = useState(0);
+
+const handleChange = (e) => {
+    setInput(e.target.value);
+}
 
 const handleSubmit = (e) => {
     e.preventDefault();
 
+    setId(id + 1);
+
     props.onSubmit({
-        id: Math.floor(Math.random() * 10000),
+        id: id,
         text: input
-    })
+    });
+
+    setInput('');
 }
 
   return (
@@ -20,6 +29,7 @@ const handleSubmit = (e) => {
             value={input} 
             name="text" 
             className="todo-input"
+            onChange={handleChange}
           />
           <button className="todo-button">Add todo</button>
       </form>
